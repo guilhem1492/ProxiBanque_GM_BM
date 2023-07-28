@@ -9,6 +9,7 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Client {
+
 	@Id
 	@GeneratedValue
 	private Long id;

@@ -18,13 +18,14 @@ public class DBInit {
 		this.conseillerRepository = conseillerRepository;
 		this.clientRepository = clientRepository;
 	}
-	
+
 	@PostConstruct
 	public void start() {
-		conseillerRepository.saveAll(List.of(new Conseiller("Bob","Marley"),new Conseiller("Mark","Zuckerberg"),new Conseiller("John","Wayne")));
-		clientRepository.save(new Client("Morgane","Jessy","Rue de La Paix",75001,"Paris","0654332482"));
-		clientRepository.save(new Client("JOJO","Luke","Rue d'Opera",75003,"Paris","0623323485"));
+		conseillerRepository.saveAll(List.of(new Conseiller("Bob", "Marley"), new Conseiller("Mark", "Zuckerberg"),
+				new Conseiller("John", "Wayne")));
 
+		clientRepository.save(new Client("Morgane", "Jessy", "Rue de La Paix", 75001, "Paris", "0654332482"));
+		clientRepository.save(new Client("JOJO", "Luke", "Rue d'Opera", 75003, "Paris", "0623323485"));
 	}
-	
+
 }
