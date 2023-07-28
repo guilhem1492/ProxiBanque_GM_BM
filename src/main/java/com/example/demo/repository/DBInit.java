@@ -21,6 +21,7 @@ public class DBInit {
 
 	@PostConstruct
 	public void start() {
+
 		conseillerRepository.saveAll(List.of(new Conseiller("Bob", "Marley"), new Conseiller("Mark", "Zuckerberg"),
 				new Conseiller("John", "Wayne")));
 
