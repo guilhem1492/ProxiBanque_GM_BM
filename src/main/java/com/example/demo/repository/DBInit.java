@@ -29,31 +29,29 @@ public class DBInit {
 		Conseiller conseiller1 = new Conseiller("Delphine", "Joelle");
 		Conseiller conseiller2 = new Conseiller("René", "Olivier");
 
-		CompteCourant compteCourant1 = new CompteCourant("123456789", 1500.0, "2001");
-		CompteCourant compteCourant2 = new CompteCourant("987654321", 3500.0, "2009");
-		CompteCourant compteCourant3 = new CompteCourant("324324324", 9500.0, "1997");
+		CompteCourant compteCourant1 = new CompteCourant("111111111", 1500.0, "2001");
+		CompteCourant compteCourant2 = new CompteCourant("222222222", 3500.0, "2009");
+		CompteCourant compteCourant3 = new CompteCourant("333333333", 9500.0, "1997");
 
-		CompteEpargne compteEpargne1 = new CompteEpargne("123456789", 1500.0, "2015");
-		CompteEpargne compteEpargne2 = new CompteEpargne("123456789", 1500.0, "2004");
-		CompteEpargne compteEpargne3 = new CompteEpargne("123456789", 1500.0, "1997");
+		CompteEpargne compteEpargne1 = new CompteEpargne("999999999", 1500.0, "2015");
+		CompteEpargne compteEpargne2 = new CompteEpargne("888888888", 1500.0, "2004");
+		CompteEpargne compteEpargne3 = new CompteEpargne("777777777", 1500.0, "1997");
 
 		client1.setCompteCourant(compteCourant1);
-		compteCourant1.setClient(client1);
 		client2.setCompteCourant(compteCourant2);
-		compteCourant2.setClient(client2);
 		client3.setCompteCourant(compteCourant3);
-		compteCourant3.setClient(client3);
 
 		client1.setCompteEpargne(compteEpargne1);
-		compteEpargne1.setClient(client1);
 		client2.setCompteEpargne(compteEpargne2);
-		compteEpargne2.setClient(client2);
 		client3.setCompteEpargne(compteEpargne3);
-		compteEpargne3.setClient(client3);
 
 		conseiller1.addClient(client1);
 		conseiller2.addClient(client2);
 		conseiller2.addClient(client3);
+
+		client1.virementComptesCourants(100, client2);
+		client3.virementCourantEpargne(500);
+		client3.virementEpargneCourant(500);
 
 		conseillerRepository.save(conseiller1);
 		conseillerRepository.save(conseiller2);

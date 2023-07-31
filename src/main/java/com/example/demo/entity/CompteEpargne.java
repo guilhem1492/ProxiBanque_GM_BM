@@ -14,6 +14,7 @@ public class CompteEpargne {
 	private String numCompte;
 	private double solde;
 	private String date;
+	private final double tauxRemuneration = 0.03;
 
 	@OneToOne(mappedBy = "compteEpargne")
 	private Client client;
@@ -65,6 +66,11 @@ public class CompteEpargne {
 
 	public void setDate(String date) {
 		this.date = date;
+	}
+
+	public double calculerInteret() {
+		double interet = solde * tauxRemuneration;
+		return interet;
 	}
 
 	@Override
