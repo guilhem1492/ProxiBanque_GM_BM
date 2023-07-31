@@ -1,5 +1,7 @@
 package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,6 +18,7 @@ public class CompteEpargne {
 	private String date;
 	private final double tauxRemuneration = 0.03;
 
+	@JsonIgnore
 	@OneToOne(mappedBy = "compteEpargne")
 	private Client client;
 
