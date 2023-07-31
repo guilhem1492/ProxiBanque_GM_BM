@@ -18,7 +18,6 @@ import com.example.demo.service.ClientService;
 import com.example.demo.service.ConseillerService;
 
 @RestController
-//@RequestMapping("/conseiller")
 public class RestApiController {
 
 	private final ConseillerService conseillerService;
@@ -40,19 +39,19 @@ public class RestApiController {
 		return conseillerService.saveConseiller(Conseiller);
 	}
 
-	@GetMapping("/conseiller/{id}")
+	@GetMapping("/conseillers/{id}")
 	Optional<Conseiller> getConseillerById(@PathVariable Long id) {
 		return conseillerService.getConseillerById(id);
 	}
 
-	@PutMapping("/conseiller/{id}")
+	@PutMapping("/conseillers/{id}")
 	ResponseEntity<Conseiller> putConseiller(@PathVariable Long id, @RequestBody Conseiller conseiller) {
 		return (conseillerService.conseillerExistById(id))
 				? new ResponseEntity<>(conseillerService.saveConseiller(conseiller), HttpStatus.OK)
 				: new ResponseEntity<>(conseillerService.saveConseiller(conseiller), HttpStatus.CREATED);
 	}
 
-	@DeleteMapping("/conseiller/{id}")
+	@DeleteMapping("/conseillers/{id}")
 	void deleteConseiller(@PathVariable Long id) {
 		conseillerService.deleteConseiller(id);
 	}
@@ -63,16 +62,38 @@ public class RestApiController {
 
 	}
 
-//	@PutMapping("/client/{id}")
-//	ResponseEntity<Client> putClient(@PathVariable Long id, @RequestBody Client client) {
-//		return (clientService.clientExistById(id))
-//				? new ResponseEntity<>(clientService.saveClient(client), HttpStatus.OK)
-//				: new ResponseEntity<>(clientService.saveClient(client), HttpStatus.CREATED);
-//	}
-
-	@PutMapping("/client/{id}")
-	void putClient(@PathVariable Long id, @RequestBody Client client) {
-		clientService.virementCourantEpargne(500, client);
+	@GetMapping("/clients/{id}")
+	Optional<Client> getClientById(@PathVariable Long id) {
+		return clientService.getClientById(id);
 	}
 
+	@PutMapping("/clients/virementepargnecourant/{id}/{montant}")
+	ResponseEntity<String> virementEpargneCourant(@PathVariable Long id, @PathVariable int montant) {
+		clientService.virementEpargneCourant(montant, clientService.getClientById(id).get());
+		String responseMessage = "Virement effectué avec succès !";
+		return ResponseEntity.ok(responseMessage);
+	}
+
+	@PutMapping("/clients/virementcourantepargne/{id}/{montant}")
+	ResponseEntity<String> virementCourantEpargne(@PathVariable Long id, @PathVariable int montant) {
+		clientService.virementCourantEpargne(montant, clientService.getClientById(id).get());
+		String responseMessage = "Virement effectué avec succès !";
+		return ResponseEntity.ok(responseMessage);
+	}
+
+	@PutMapping("/clients/virement/{idEmetteur}/{idRecepteur}/{montant}")
+	ResponseEntity<String> virementCompteCourantToCompteCourant(@PathVariable Long idEmetteur,
+			@PathVariable Long idRecepteur, @PathVariable int montant) {
+		Optional<Client> optionalClientEmetteur = clientService.getClientById(idEmetteur);
+		Optional<Client> optionalClientRecepteur = clientService.getClientById(idRecepteur);
+
+		Client clientEmetteur = optionalClientEmetteur.get();
+		Client clientRecepteur = optionalClientRecepteur.get();
+
+		clientService.virementComptesCourants(montant, clientEmetteur, clientRecepteur);
+
+		String responseMessage = "Virement effectué avec succès !";
+
+		return ResponseEntity.ok(responseMessage);
+	}
 }
