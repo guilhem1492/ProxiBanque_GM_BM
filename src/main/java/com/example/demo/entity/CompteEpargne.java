@@ -1,11 +1,9 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -17,8 +15,7 @@ public class CompteEpargne {
 	private double solde;
 	private String date;
 
-	@OneToOne(cascade = { CascadeType.PERSIST })
-	@JoinColumn(name = "compteEpargne")
+	@OneToOne(mappedBy = "compteEpargne")
 	private Client client;
 
 	public CompteEpargne() {

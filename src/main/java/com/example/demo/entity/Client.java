@@ -9,7 +9,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -30,12 +29,12 @@ public class Client {
 	@JoinColumn(name = "conseiller_id")
 	private Conseiller conseiller;
 
-	@OneToOne(cascade = { CascadeType.PERSIST })
+	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	@JoinColumn(name = "compteCourant_id", unique = true)
 	private CompteCourant compteCourant;
 
-	@OneToOne(cascade = { CascadeType.PERSIST })
-	@MapsId
+	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+	@JoinColumn(name = "compteEpargne_id", unique = true)
 	private CompteEpargne compteEpargne;
 
 	public Client() {
@@ -48,7 +47,6 @@ public class Client {
 		this.codePostal = codePostal;
 		this.ville = ville;
 		this.telephone = telephone;
-		// this.conseiller = conseiller;
 	}
 
 	public Long getId() {
