@@ -48,7 +48,7 @@ public class RestApiController {
 	}
 
 	@DeleteMapping("/{id}")
-	void deleteCoffee(@PathVariable Long id) {
+	void deleteConseiller(@PathVariable Long id) {
 		conseillerService.deleteConseiller(id);
 	}
 }

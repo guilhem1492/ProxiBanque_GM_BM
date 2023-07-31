@@ -1,11 +1,13 @@
 package com.example.demo.entity;
 
 import java.util.HashSet;
+
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
@@ -13,7 +15,7 @@ import jakarta.persistence.OneToMany;
 public class Conseiller {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nom;
 	private String prenom;
@@ -67,6 +69,11 @@ public class Conseiller {
 	@Override
 	public String toString() {
 		return "Conseiller [id=" + id + ", nom=" + nom + ", prenom=" + prenom + "]";
+	}
+
+	public void addClient(Client client) {
+		clients.add(client);
+		client.setConseiller(this);
 	}
 
 }
