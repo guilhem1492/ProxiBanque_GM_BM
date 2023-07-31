@@ -33,6 +33,7 @@ public class Client {
 		this.codePostal = codePostal;
 		this.ville = ville;
 		this.telephone = telephone;
+		// this.conseiller = conseiller;
 	}
 
 	public Long getId() {
@@ -102,7 +103,7 @@ public class Client {
 	@Override
 	public String toString() {
 		return "Client [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", adresse=" + adresse + ", codePostal="
-				+ codePostal + ", ville=" + ville + ", telephone=" + telephone + ", conseiller=" + conseiller + "]";
+				+ codePostal + ", ville=" + ville + ", telephone=" + telephone + "]";
 	}
 
 }

@@ -31,6 +31,7 @@ public class RestApiController {
 		return conseillerService.getAllConseillers();
 
 	}
+
 	@PostMapping
 	Conseiller postConseiller(@RequestBody Conseiller Conseiller) {
 		return conseillerService.saveConseiller(Conseiller);
@@ -43,12 +44,13 @@ public class RestApiController {
 
 	@PutMapping("/{id}")
 	ResponseEntity<Conseiller> putConseiller(@PathVariable Long id, @RequestBody Conseiller conseiller) {
-		return (conseillerService.conseillerExistById(id)) ? new ResponseEntity<>(conseillerService.saveConseiller(conseiller), HttpStatus.OK)
+		return (conseillerService.conseillerExistById(id))
+				? new ResponseEntity<>(conseillerService.saveConseiller(conseiller), HttpStatus.OK)
 				: new ResponseEntity<>(conseillerService.saveConseiller(conseiller), HttpStatus.CREATED);
 	}
 
 	@DeleteMapping("/{id}")
-	void deleteCoffee(@PathVariable Long id) {
+	void deleteConseiller(@PathVariable Long id) {
 		conseillerService.deleteConseiller(id);
 	}
 }

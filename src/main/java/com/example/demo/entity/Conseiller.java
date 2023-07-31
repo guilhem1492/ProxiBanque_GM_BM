@@ -3,6 +3,8 @@ package com.example.demo.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,12 +22,13 @@ public class Conseiller {
 	@OneToMany(mappedBy = "conseiller", cascade = { CascadeType.PERSIST })
 	private Set<Client> clients = new HashSet<>();
 
+	@JsonIgnore
 	public Conseiller() {
 	}
 
-	public Conseiller(String nom) {
-		this.nom = nom;
-	}
+//	public Conseiller(String nom) {
+//		this.nom = nom;
+//	}
 
 	public Conseiller(String nom, String prenom) {
 		this.nom = nom;
@@ -64,9 +67,14 @@ public class Conseiller {
 		this.clients = clients;
 	}
 
+	public void addClient(Client c) {
+		clients.add(c);
+		c.setConseiller(this);
+	}
+
 	@Override
 	public String toString() {
-		return "Conseiller [id=" + id + ", nom=" + nom + ", prenom=" + prenom + "]";
+		return "Conseiller [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", clients=" + clients + "]";
 	}
 
 }
