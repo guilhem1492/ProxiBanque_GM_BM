@@ -129,43 +129,43 @@ public class Client {
 		this.compteEpargne = compteEpargne;
 	}
 
-	public void virementComptesCourants(int montant, Client client) {
-		CompteCourant compteRecepteur = client.getCompteCourant();
-		double soldeEmetteur = this.compteCourant.getSolde();
-		if (montant < soldeEmetteur) {
-			double nouveauSoldeEmetteur = soldeEmetteur - montant;
-			this.compteCourant.setSolde(nouveauSoldeEmetteur);
-			double nouveauSoldeRecepteur = compteRecepteur.getSolde() + montant;
-			compteRecepteur.setSolde(nouveauSoldeRecepteur);
-		} else {
-			System.out.println("solde insuffisant");
-		}
-	}
-
-	public void virementCourantEpargne(int montant) {
-		double soldeEmetteur = this.compteCourant.getSolde();
-		if (montant < soldeEmetteur) {
-			double nouveauSoldeEmetteur = soldeEmetteur - montant;
-			this.compteCourant.setSolde(nouveauSoldeEmetteur);
-			double nouveauSoldeRecepteur = this.compteEpargne.getSolde() + montant;
-			this.compteEpargne.setSolde(nouveauSoldeRecepteur);
-		} else {
-			System.out.println("solde insuffisant");
-		}
-	}
-
-	public void virementEpargneCourant(int montant) {
-
-		double soldeEmetteur = this.compteEpargne.getSolde();
-		if (montant < soldeEmetteur) {
-			double nouveauSoldeEmetteur = soldeEmetteur - montant;
-			this.compteEpargne.setSolde(nouveauSoldeEmetteur);
-			double nouveauSoldeRecepteur = this.compteCourant.getSolde() + montant;
-			this.compteCourant.setSolde(nouveauSoldeRecepteur);
-		} else {
-			System.out.println("solde insuffisant");
-		}
-	}
+//	public void virementComptesCourants(int montant, Client client) {
+//		CompteCourant compteRecepteur = client.getCompteCourant();
+//		double soldeEmetteur = this.compteCourant.getSolde();
+//		if (montant < soldeEmetteur) {
+//			double nouveauSoldeEmetteur = soldeEmetteur - montant;
+//			this.compteCourant.setSolde(nouveauSoldeEmetteur);
+//			double nouveauSoldeRecepteur = compteRecepteur.getSolde() + montant;
+//			compteRecepteur.setSolde(nouveauSoldeRecepteur);
+//		} else {
+//			System.out.println("solde insuffisant");
+//		}
+//	}
+//
+//	public void virementCourantEpargne(int montant) {
+//		double soldeEmetteur = this.compteCourant.getSolde();
+//		if (montant < soldeEmetteur) {
+//			double nouveauSoldeEmetteur = soldeEmetteur - montant;
+//			this.compteCourant.setSolde(nouveauSoldeEmetteur);
+//			double nouveauSoldeRecepteur = this.compteEpargne.getSolde() + montant;
+//			this.compteEpargne.setSolde(nouveauSoldeRecepteur);
+//		} else {
+//			System.out.println("solde insuffisant");
+//		}
+//	}
+//
+//	public void virementEpargneCourant(int montant) {
+//
+//		double soldeEmetteur = this.compteEpargne.getSolde();
+//		if (montant < soldeEmetteur) {
+//			double nouveauSoldeEmetteur = soldeEmetteur - montant;
+//			this.compteEpargne.setSolde(nouveauSoldeEmetteur);
+//			double nouveauSoldeRecepteur = this.compteCourant.getSolde() + montant;
+//			this.compteCourant.setSolde(nouveauSoldeRecepteur);
+//		} else {
+//			System.out.println("solde insuffisant");
+//		}
+//	}
 
 	@Override
 	public String toString() {

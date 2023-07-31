@@ -49,9 +49,9 @@ public class DBInit {
 		conseiller2.addClient(client2);
 		conseiller2.addClient(client3);
 
-		client1.virementComptesCourants(100, client2);
-		client3.virementCourantEpargne(500);
-		client3.virementEpargneCourant(500);
+//		client1.virementComptesCourants(100, client2);
+//		client3.virementCourantEpargne(500);
+//		client3.virementEpargneCourant(500);
 
 		conseillerRepository.save(conseiller1);
 		conseillerRepository.save(conseiller2);
