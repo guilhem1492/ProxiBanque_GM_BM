@@ -19,7 +19,7 @@ public interface ClientService {
 	String virementComptesCourants(double montant, Client clientEmetteur, Client clientRecepteur)
 			throws SimpleException;
 
-	String virementCourantEpargne(double montant, Client client);
+	String virementCourantEpargne(double montant, Client client) throws SimpleException;
 
-	String virementEpargneCourant(double montant, Client client);
+	String virementEpargneCourant(double montant, Client client) throws SimpleException;
 }

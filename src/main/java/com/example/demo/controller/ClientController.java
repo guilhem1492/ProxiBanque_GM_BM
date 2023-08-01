@@ -52,13 +52,15 @@ public class ClientController {
 	}
 
 	@PutMapping("/virementepargnecourant/{id}/{montant}")
-	ResponseEntity<String> virementEpargneCourant(@PathVariable Long id, @PathVariable double montant) {
+	ResponseEntity<String> virementEpargneCourant(@PathVariable Long id, @PathVariable double montant)
+			throws SimpleException {
 		String messageReponse = clientService.virementEpargneCourant(montant, clientService.getClientById(id).get());
 		return ResponseEntity.ok(messageReponse);
 	}
 
 	@PutMapping("/virementcourantepargne/{id}/{montant}")
-	ResponseEntity<String> virementCourantEpargne(@PathVariable Long id, @PathVariable double montant) {
+	ResponseEntity<String> virementCourantEpargne(@PathVariable Long id, @PathVariable double montant)
+			throws SimpleException {
 		String responseMessage = clientService.virementCourantEpargne(montant, clientService.getClientById(id).get());
 		return ResponseEntity.ok(responseMessage);
 	}
