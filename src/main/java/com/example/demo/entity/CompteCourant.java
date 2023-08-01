@@ -12,7 +12,9 @@ import jakarta.persistence.OneToOne;
 public class CompteCourant {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	private Long id;
+
 	private String numCompte;
 	private double solde;
 	private String date;

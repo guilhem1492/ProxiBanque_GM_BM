@@ -10,18 +10,31 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Client {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	private Long id;
+
+	@NotEmpty(message = "Le nom est nécessaire.")
 	private String nom;
+
+	@NotEmpty(message = "Le prénom est nécessaire.")
 	private String prenom;
+
 	private String adresse;
+
+	@NotNull
 	private int codePostal;
+
+	@NotEmpty
 	private String ville;
+
 	private String telephone;
 
 	@JsonIgnore

@@ -44,32 +44,42 @@ public class ClientServiceImpl implements ClientService {
 	}
 
 	@Override
-	public String virementComptesCourants(int montant, Client clientEmetteur, Client clientRecepteur) {
+	public String virementComptesCourants(double montant, Client clientEmetteur, Client clientRecepteur)
+			throws SimpleException {
 		String messageReponse;
-		if (montant > 0) {
-			CompteCourant compteCourantEmetteur = clientEmetteur.getCompteCourant();
-			CompteCourant compteCourantRecepteur = clientRecepteur.getCompteCourant();
-			double soldeEmetteur = compteCourantEmetteur.getSolde();
-			if (montant <= soldeEmetteur
-					|| soldeEmetteur + compteCourantEmetteur.getAutorisationDecouvert() >= montant) {
-				double nouveauSoldeEmetteur = soldeEmetteur - montant;
-				compteCourantEmetteur.setSolde(nouveauSoldeEmetteur);
-				double nouveauSoldeRecepteur = compteCourantRecepteur.getSolde() + montant;
-				compteCourantRecepteur.setSolde(nouveauSoldeRecepteur);
-				messageReponse = "Virement effectué avec succès !";
-				clientRepository.save(clientEmetteur);
-				clientRepository.save(clientRecepteur);
+
+		try {
+			if (montant > 0) {
+				CompteCourant compteCourantEmetteur = clientEmetteur.getCompteCourant();
+				CompteCourant compteCourantRecepteur = clientRecepteur.getCompteCourant();
+				double soldeEmetteur = compteCourantEmetteur.getSolde();
+				if (montant <= soldeEmetteur
+						|| soldeEmetteur + compteCourantEmetteur.getAutorisationDecouvert() >= montant) {
+					double nouveauSoldeEmetteur = soldeEmetteur - montant;
+					compteCourantEmetteur.setSolde(nouveauSoldeEmetteur);
+					double nouveauSoldeRecepteur = compteCourantRecepteur.getSolde() + montant;
+					compteCourantRecepteur.setSolde(nouveauSoldeRecepteur);
+					messageReponse = "Virement effectué avec succès !";
+					clientRepository.save(clientEmetteur);
+					clientRepository.save(clientRecepteur);
+					return messageReponse;
+				} else {
+					messageReponse = "solde insuffisant";
+					throw new SimpleException(messageReponse);
+				}
 			} else {
-				messageReponse = "solde insuffisant";
+				messageReponse = "Le montant du virement doit être positif";
+				throw new SimpleException(messageReponse);
 			}
-		} else {
-			messageReponse = "Le montant du virement doit être positif";
+
+		} catch (Exception e) {
+			return e.getMessage();
 		}
-		return messageReponse;
+
 	}
 
 	@Override
-	public String virementCourantEpargne(int montant, Client client) {
+	public String virementCourantEpargne(double montant, Client client) {
 		String messageReponse;
 		if (montant > 0) {
 			double soldeEmetteur = client.getCompteCourant().getSolde();
@@ -95,7 +105,7 @@ public class ClientServiceImpl implements ClientService {
 	}
 
 	@Override
-	public String virementEpargneCourant(int montant, Client client) {
+	public String virementEpargneCourant(double montant, Client client) {
 		String messageReponse;
 		if (montant > 0) {
 			double soldeEpargne = client.getCompteEpargne().getSolde();

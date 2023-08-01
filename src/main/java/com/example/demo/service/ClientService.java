@@ -16,9 +16,10 @@ public interface ClientService {
 
 	boolean clientExistById(Long id);
 
-	String virementComptesCourants(int montant, Client clientEmetteur, Client clientRecepteur);
+	String virementComptesCourants(double montant, Client clientEmetteur, Client clientRecepteur)
+			throws SimpleException;
 
-	String virementCourantEpargne(int montant, Client client);
+	String virementCourantEpargne(double montant, Client client);
 
-	String virementEpargneCourant(int montant, Client client);
+	String virementEpargneCourant(double montant, Client client);
 }
