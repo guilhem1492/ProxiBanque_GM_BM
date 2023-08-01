@@ -44,44 +44,75 @@ public class ClientServiceImpl implements ClientService {
 	}
 
 	@Override
-	public void virementComptesCourants(int montant, Client clientEmetteur, Client clientRecepteur) {
-		CompteCourant compteRecepteur = clientRecepteur.getCompteCourant();
-		double soldeEmetteur = clientEmetteur.getCompteCourant().getSolde();
-		if (montant < soldeEmetteur) {
-			double nouveauSoldeEmetteur = soldeEmetteur - montant;
-			clientEmetteur.getCompteCourant().setSolde(nouveauSoldeEmetteur);
-			double nouveauSoldeRecepteur = compteRecepteur.getSolde() + montant;
-			compteRecepteur.setSolde(nouveauSoldeRecepteur);
+	public String virementComptesCourants(int montant, Client clientEmetteur, Client clientRecepteur) {
+		String messageReponse;
+		if (montant > 0) {
+			CompteCourant compteCourantEmetteur = clientEmetteur.getCompteCourant();
+			CompteCourant compteCourantRecepteur = clientRecepteur.getCompteCourant();
+			double soldeEmetteur = compteCourantEmetteur.getSolde();
+			if (montant <= soldeEmetteur
+					|| soldeEmetteur + compteCourantEmetteur.getAutorisationDecouvert() >= montant) {
+				double nouveauSoldeEmetteur = soldeEmetteur - montant;
+				compteCourantEmetteur.setSolde(nouveauSoldeEmetteur);
+				double nouveauSoldeRecepteur = compteCourantRecepteur.getSolde() + montant;
+				compteCourantRecepteur.setSolde(nouveauSoldeRecepteur);
+				messageReponse = "Virement effectué avec succès !";
+				clientRepository.save(clientEmetteur);
+				clientRepository.save(clientRecepteur);
+			} else {
+				messageReponse = "solde insuffisant";
+			}
 		} else {
-			System.out.println("solde insuffisant");
+			messageReponse = "Le montant du virement doit être positif";
 		}
+		return messageReponse;
 	}
 
 	@Override
-	public void virementCourantEpargne(int montant, Client client) {
-
-		double soldeEmetteur = client.getCompteCourant().getSolde();
-		if (montant < soldeEmetteur) {
-			double nouveauSoldeEmetteur = soldeEmetteur - montant;
-			client.getCompteCourant().setSolde(nouveauSoldeEmetteur);
-			double nouveauSoldeRecepteur = client.getCompteEpargne().getSolde() + montant;
-			client.getCompteEpargne().setSolde(nouveauSoldeRecepteur);
+	public String virementCourantEpargne(int montant, Client client) {
+		String messageReponse;
+		if (montant > 0) {
+			double soldeEmetteur = client.getCompteCourant().getSolde();
+			double nouveauSoldeEmetteur;
+			double nouveauSoldeRecepteur;
+			if (soldeEmetteur >= montant
+					|| soldeEmetteur + client.getCompteCourant().getAutorisationDecouvert() >= montant) {
+				nouveauSoldeEmetteur = soldeEmetteur - montant;
+				client.getCompteCourant().setSolde(nouveauSoldeEmetteur);
+				nouveauSoldeRecepteur = client.getCompteEpargne().getSolde() + montant;
+				client.getCompteEpargne().setSolde(nouveauSoldeRecepteur);
+				clientRepository.save(client);
+				messageReponse = "Virement effectué avec succès !";
+			} else {
+				messageReponse = "Solde insuffisant";
+			}
+			return messageReponse;
 		} else {
-			System.out.println("solde insuffisant"); // exception Runtime à ajouter
+			messageReponse = "Le montant du virement doit être positif";
 		}
+		return messageReponse;
+
 	}
 
 	@Override
-	public void virementEpargneCourant(int montant, Client client) {
-		double soldeEmetteur = client.getCompteEpargne().getSolde();
-		if (montant < soldeEmetteur) {
-			double nouveauSoldeEmetteur = soldeEmetteur - montant;
-			client.getCompteEpargne().setSolde(nouveauSoldeEmetteur);
-			double nouveauSoldeRecepteur = client.getCompteCourant().getSolde() + montant;
-			client.getCompteCourant().setSolde(nouveauSoldeRecepteur);
+	public String virementEpargneCourant(int montant, Client client) {
+		String messageReponse;
+		if (montant > 0) {
+			double soldeEpargne = client.getCompteEpargne().getSolde();
+			if (montant <= soldeEpargne) {
+				double nouveauSoldeEpargne = soldeEpargne - montant;
+				client.getCompteEpargne().setSolde(nouveauSoldeEpargne);
+				double nouveauSoldeCourant = client.getCompteCourant().getSolde() + montant;
+				client.getCompteCourant().setSolde(nouveauSoldeCourant);
+				clientRepository.save(client);
+				messageReponse = "Virement effectué avec succès !";
+			} else {
+				messageReponse = "Solde épargne insuffisant";
+			}
 		} else {
-			System.out.println("solde insuffisant");
+			messageReponse = "Le montant du virement doit être positif";
 		}
+		return messageReponse;
 	}
 
 }

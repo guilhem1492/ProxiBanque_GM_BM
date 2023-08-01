@@ -16,9 +16,9 @@ public interface ClientService {
 
 	boolean clientExistById(Long id);
 
-	void virementComptesCourants(int montant, Client clientEmetteur, Client clientRecepteur);
+	String virementComptesCourants(int montant, Client clientEmetteur, Client clientRecepteur);
 
-	void virementCourantEpargne(int montant, Client client);
+	String virementCourantEpargne(int montant, Client client);
 
-	void virementEpargneCourant(int montant, Client client);
+	String virementEpargneCourant(int montant, Client client);
 }

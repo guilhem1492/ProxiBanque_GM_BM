@@ -16,6 +16,7 @@ public class CompteCourant {
 	private String numCompte;
 	private double solde;
 	private String date;
+	private double autorisationDecouvert = 1000.0;
 
 	@JsonIgnore
 	@OneToOne(mappedBy = "compteCourant")
@@ -70,10 +71,18 @@ public class CompteCourant {
 		this.client = client;
 	}
 
+	public double getAutorisationDecouvert() {
+		return autorisationDecouvert;
+	}
+
+	public void setAutorisationDecouvert(double autorisationDecouvert) {
+		this.autorisationDecouvert = autorisationDecouvert;
+	}
+
 	@Override
 	public String toString() {
-		return "CompteEpargne [id=" + id + ", numCompte=" + numCompte + ", solde=" + solde + ", date=" + date
-				+ ", client=" + client + "]";
+		return "CompteCourant [id=" + id + ", numCompte=" + numCompte + ", solde=" + solde + ", date=" + date
+				+ ", autorisationDecouvert=" + autorisationDecouvert + ", client=" + client + "]";
 	}
 
 }
