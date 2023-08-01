@@ -1,5 +1,5 @@
 # ProxiBanque
-Projet développé par Malainine et Guilhem
+Projet développé par Maalainine et Guilhem
 
 Il s'agit d'un webservice.
 
@@ -27,7 +27,7 @@ Java, Spring Boot, JPA, PostgreSQL.
 
 # Fonctionnalités
 
-Persistance en base de données d'une liste de conseillers et d'une liste de clients.
+Persistance en base de données d'une liste de conseillers et d'une liste de clients. Les clients peuvent effectuer des virements de compte courant à compte courant ou sur leur compte épargne ou vice versa.
 
 # Installation
 
@@ -39,6 +39,6 @@ Importez le et lancez le projet Spring.
 
 # Reste à faire
 
-- 
--
--
+- Lier les conseillers à des agences.
+- Lier des cartes de crédit à chaque client.
+- Ajouter une couche DTO et refactoriser le code dans les couches Service et Controller.
